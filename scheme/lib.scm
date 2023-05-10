@@ -1,0 +1,6 @@
+(load "functional.scm")
+(load "macro.scm")
+(load "lazy.scm")
+(load "classes.scm")
+(load "files.scm")
+(load "persistent-treap.scm")
