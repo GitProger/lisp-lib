@@ -68,13 +68,13 @@
             " " 
             (stringify-arguments (cdr args)))]))
 
-; no doc -> no arg list -> need ""
 (defmacro defn (f doc args . body)
   (if (string? doc)
     `(begin
       (create-doc ,f ,(string-append (symbol->string f) "(" (stringify-arguments args) "): " doc)) ; ,doc)
       (define (,f ,@args) ,@body))
-    `(define (,f ,@doc) ,@(cons args body))))
+    `(defn ,f "-" ,doc ,@(cons args body))))
+
 
 ; no syntax sugar like in clojure: (defn test [a [b c]] (+ a b c)) (test 1 [2 3])
 ;;;;; Samples:
@@ -84,27 +84,3 @@
 
 (defmacro defun (name args . body)
   (cons 'define (cons (cons name args) body)))
-
-
-
-; (letrec ((fact (lambda (n) ; letrec*
-;           (if (zero? n)
-;             1 
-;             (* n (fact (1- n)))))))
-;   (fact 6))
-
-
-
-;; let, let* <- lambda combinations
-;; cond, case ... <- if + defmacro
-;; defun <- define lambda
-;; map/filter/reduce/any/all <- recursion + if + car + cons + cdr
-;; list* <- list <- cons
-
-;; core:
-;; defmacro
-;; define
-;; lambda
-;; _context
-;; car cdr cons
-;; optional: list
