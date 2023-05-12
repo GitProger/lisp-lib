@@ -28,35 +28,3 @@
 
 (defmacro for* (bindings . body)   ; (for* (i '(1 2 3) j '(1 2 3)) (* i j))
   `(for*- ,(group2 bindings) ,@body))
-
-; scheme@(guile-user)> (for*- ((i r)) i)
-; $1 = (1 2 3)
-; scheme@(guile-user)> (for*- ((i r) (j r)) i)
-; $2 = (1 1 1 2 2 2 3 3 3)
-; scheme@(guile-user)> (for*- ((i r) (j r)) (- i j))
-; $3 = (0 -1 -2 1 0 -1 2 1 0)
-; scheme@(guile-user)> (for* (i r j r) (- i j))
-; $4 = (0 1 2 -1 0 1 -2 -1 0)
-
-
-
-; (define r '(0 1 2 3))
-; (mapcan
-;   (lambda (j)
-;     (map 
-;       (lambda (i)
-;         (* i j))
-;       r))
-;   r)
-
-; (def r '(0 1 2 3))
-; (mapcat
-;   (fn [j]
-;     (map 
-;       (fn [i]
-;         (* i j))
-;       r))
-;   r)
-
-
-

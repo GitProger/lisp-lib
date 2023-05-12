@@ -69,25 +69,3 @@
       (if (= x v)
         (merge-trees l r)
         (remove-value (if (< v x) l r) v)))))
-
-#|
-(define mk make-rnd-node)
-(define mky make-node)
-(define sr find-node)
-(define mn find-min)
-(define mx find-max)
-(define sp split-tree)
-(define mr merge-trees)
-(define ad add-value)
-(define an add-node)
-(define rm remove-value)
-
-
-(define tree nil)
-(define tree (add-value tree 10))
-(define tree (add-value tree 20))
-(define tree (add-value tree 5))
-(define tree (add-value tree 52))
-((find-min tree) 'x)
-
-|#
