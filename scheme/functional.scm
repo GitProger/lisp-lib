@@ -48,12 +48,17 @@
       (cons a (car as))]
     [else (cons a (apply list* as))]))
 
+(define (range l r)
+  (if (= l r) '()
+    (cons l (range (1+ l) r))))
+
+(define str string-append)
+
 (defmacro macro-apply-list (macro-name args) 
   `(eval (cons ',macro-name ,args) (interaction-environment)))
 
 (defmacro macro-apply (macro-name . args) 
   `(eval (cons ',macro-name (list* ,@args))) (interaction-environment))
-
 
 
 ;(map + '(1 2 3) '(4 5 6 7 8 9))
@@ -63,7 +68,7 @@
 
 ; (define (every? predicate seq)
 ;   (macro-apply and (map predicate seq)))
-; (define (any? predicate seq)
+; (define (some? predicate seq)
 ;   (macro-apply or (map predicate seq)))
 
 
@@ -71,13 +76,12 @@
   (if (null? seq) #t
     (and (predicate (car seq)) (every? predicate (cdr seq)))))
 
-(define (any? predicate seq)
+(define (some? predicate seq)
   (if (null? seq) #f
-    (or (predicate (car seq)) (any? predicate (cdr seq)))))
+    (or (predicate (car seq)) (some? predicate (cdr seq)))))
 
 (define (mapcar f . colls)
-  (if (any? null? colls) '()
+  (if (some? null? colls) '()
     (cons (apply f (map car colls))
           (apply mapcar f (map cdr colls)))))
 
-(define str string-append)
