@@ -1,3 +1,7 @@
+(defun range (l r)
+  (if (= l r) nil
+    (cons l (range (1+ l) r))))
+
 ;; lists:
 
 (defun transpose (M)
@@ -14,10 +18,6 @@
     (mapcar
       (lambda (v) (mulv A v)) 
       (transpose B))))
-
-(defun range (l r)
-  (if (= l r) nil
-    (cons l (range (1+ l) r))))
 
 (defun I (n)
   (if (listp n)
@@ -49,10 +49,10 @@
   (map 'vector (lambda (x) (dot-v x v)) M))
 
 (defun mul-v (A B)
-  (transpose 
+  (transpose-v 
     (map 'vector
-      (lambda (v) (mulv A v)) 
-      (transpose B))))
+      (lambda (v) (mulv-v A v)) 
+      (transpose-v B))))
 
 (defun I-v (n)
   (if (vectorp n)
