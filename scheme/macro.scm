@@ -1,14 +1,3 @@
-; https://stackoverflow.com/questions/8587284/how-can-i-use-concatenation-in-scheme-without-spaces
-; https://www.cs.cmu.edu/Groups/AI/html/r4rs/r4rs_8.html
-; http://www.shido.info/lisp/scheme_syntax_e.html
-; https://www.gnu.org/software/guile/manual/html_node/Macros.html 
-; https://www.gnu.org/software/guile/manual/html_node/Defmacros.html
-(load "functional.scm")
-
-;(define nil (cond (#f 0)))
-;(define nil '())
-
-
 (defmacro defzero (name) 
   `(define ,name 0))
 (defmacro defzeros (. names) 
