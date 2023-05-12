@@ -53,7 +53,7 @@
 
 ; (lazy-seq->list (lazy-take 5 (lazy-cycle '(1 2))))
 ; (lazy-seq->list (lazy-take 5 (lazy-cycle (lazy-seq '(1 2)))))
-; (lazy-seq->list (lazy-take 5 (lazy-cycle (range 1 5 1))))
+; (lazy-seq->list (lazy-take 5 (lazy-cycle (xrange 1 5 1))))
 ; (lazy-seq->list (lazy-take 17 (lazy-cycle (lazy-range 1 6 1))))
 
 (define (correct-range? l r s)
