@@ -1,8 +1,14 @@
+; (use-modules (language tree-il))
+; (define (mexpand l)
+;   (tree-il->scheme (macroexpand l)))
+
 (define fn? procedure?)
 (define int? integer?)
 (define quot quotient)
 (define rem remainder)
 (define mod modulo)
+(define (read-string s) (read (open-input-string s)))
+
 
 (define (foldl f val coll)
   (if (null? coll) val

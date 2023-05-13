@@ -43,24 +43,11 @@
   `(display 
     (string-append "\t" (doc-find __doc-list ',sym) "\n")))
 
-(define (stringify-arguments args)
-  (cond
-    [(null? args) ""]                                             ; no args `()`
-    [(symbol? args) (string-append ". " (symbol->string args))]   ; only rest argument `(. xs)` 
-    [(null? (cdr args)) (symbol->string (car args))]              ; one arg `(x)`
-    [(symbol? (cdr args)) (string-append                          ; is point pair? args: `(x . y)`
-                            (symbol->string (car args))
-                            " . " 
-                            (symbol->string (cdr args)))] 
-    [else (string-append                                          ; (x ...)
-            (symbol->string (car args))
-            " " 
-            (stringify-arguments (cdr args)))]))
-
+; lambda (. x) <==> lambda x
 (defmacro defn (f doc args . body)
   (if (string? doc)
     `(begin
-      (create-doc ,f ,(string-append (symbol->string f) "(" (stringify-arguments args) "): " doc)) ; ,doc)
+      (create-doc ,f ,(string-append (symbol->string f) " " (format #f "~a" args) ": " doc)) ; ,doc)
       (define (,f ,@args) ,@body))
     `(defn ,f "-" ,doc ,@(cons args body))))
 

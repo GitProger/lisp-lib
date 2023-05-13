@@ -1,3 +1,5 @@
+;(load "functional")
+
 (defmacro defzero (name)  ; defparameter
   `(defvar ,name 0))
 (defmacro defzeros (&rest names) 
@@ -42,25 +44,10 @@
 (defmacro doc (sym) ;`(doc-find __doc-list ',sym))
   `(format t "~C~a~%" #\tab (doc-find __doc-list ',sym)))
 
-; TODO
-(defun stringify-arguments (args) ; rewrite for CL
-  (cond
-    ((null args) "")                                              ; no args `()`
-    ((symbolp args) (str ". " (string args)))                     ; only rest argument `(. xs)` 
-    ((null (cdr args)) (string (car args)))                       ; one arg `(x)`
-    ((symbolp (cdr args)) (str                                    ; is point pair? args: `(x . y)`
-                            (string (car args))
-                            " & " 
-                            (string (cdr args)))) 
-    (:else (str                                                   ; (x ...)
-            (string (car args))
-            " " 
-            (stringify-arguments (cdr args))))))
-
 (defmacro defn (f doc args &rest body)
   (if (stringp doc)
     `(progn
-      (create-doc ,f ,(str (string f) "(" (stringify-arguments args) "): " doc))
+      (create-doc ,f ,(str (string f) (format nil "~a" args) ": " doc))
       (defun ,f ,args ,@body))
     `(defn ,f "-" ,doc ,@(cons args body))))
 
