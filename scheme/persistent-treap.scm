@@ -1,3 +1,4 @@
+;functions returns tnode (a closure)
 ;(load "functional.scm")
 ;(load "lib.scm")
 ;(load "classes.scm")
