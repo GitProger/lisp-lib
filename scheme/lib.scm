@@ -3,4 +3,5 @@
 (load "lazy.scm")
 (load "classes.scm")
 (load "files.scm")
+(load "for.scm")
 (load "persistent-treap.scm")

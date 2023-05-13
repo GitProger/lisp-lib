@@ -1,6 +1,14 @@
+;; NO TRANSDUCERS
+
 (unless (fboundp 'identity)
   (defun identity (x) x))
 
+(defun fnp (x) (functionp x))
+(defun intp (x) (integerp x))
+(defun quot (x y) (floor x y))
+; rem - defined
+; mod - defined
+; read-string read-from-string
 
 (defun foldl (fun val coll)
   (if (null coll)
@@ -56,3 +64,15 @@
 ; every? - every
 ; some? - some
 ; mapcar - defined
+; mapcan - defined
+
+
+(defun interpose (sep coll)
+  (cond
+    ((null coll) '())
+    ((null (cdr coll)) (list (car coll)))
+    (:else (cons (car coll) (cons sep (interpose sep (cdr coll)))))))
+
+(defun interleave (&rest colls) ; zip
+  (if (null colls) nil
+    (apply #'mapcan #'list colls)))

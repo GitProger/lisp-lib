@@ -3,4 +3,5 @@
 (load "lazy")
 (load "classes")
 (load "files")
+(load "for")
 (load "persistent-treap")

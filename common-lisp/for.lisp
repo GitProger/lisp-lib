@@ -1,6 +1,3 @@
-; mapcan - defined
-
-
 ;; fors
 (defmacro for1 (var seq &rest body) ; (for1 i '(1 2 3) (+ 2 (* i 10)))
   `(mapcar 

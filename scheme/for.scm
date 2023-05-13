@@ -1,7 +1,3 @@
-(define (mapcan f . colls)
-  (apply append (apply map f colls)))
-(define mapcat mapcan)
-
 
 (defmacro for1 (var seq . body) ; (for1 i '(1 2 3) (+ 2 (* i 10)))
   `(map 
