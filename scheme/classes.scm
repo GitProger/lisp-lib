@@ -26,6 +26,11 @@
 (define-macro (getfield obj name)
   `(,obj ',name))
 
+(define-macro (setfield obj name val)
+  `(lambda (key) ; key is a symbol
+    (if (eq? key ',name) ,val
+      (,obj key))))
+
 ; (define (point . vals)
 ;   (let ((mapping (map list '(x y z) vals)))
 ;     (lambda (key)

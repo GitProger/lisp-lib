@@ -16,17 +16,10 @@
       (lambda (key)
         (cadr (assoc key mapping))))))
 
-
 (defmacro getfield (obj name)
   `(funcall ,obj ',name))
 
 (defmacro setfield (obj name val)
-  (lambda (key)
-    (if (eq key name) val
-      (eval `(getfield ,obj ,key)))))
-
-; (defmacro setfield (obj name val)
-;   `(lambda (key)
-;     (if (eq key ',name) ,val
-;       (getfield ,obj key))))
-
+  `(lambda (key) ; key is a symbol
+    (if (eq key ',name) ,val
+      (funcall ,obj key))))
