@@ -44,8 +44,7 @@
     (apply fun (append args xs))))
 
 ;(define (identity x) x)
-;(define (constantly x) (lambda (. _) x))
-(define (constantly x) (lambda _ x))
+(define constantly const)
 
 
 (define (list* a . as) 
