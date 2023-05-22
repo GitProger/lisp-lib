@@ -4,4 +4,5 @@
 (load "classes")
 (load "files")
 (load "for")
+(load "clj-tok")
 (load "persistent-treap")
