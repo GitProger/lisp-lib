@@ -76,3 +76,10 @@
 (defun interleave (&rest colls) ; zip
   (if (null colls) nil
     (apply #'mapcan #'list colls)))
+
+(defun flatten (l) ; O(n^2) !!!
+  (if (null l) nil
+    (let ((h (car l)))
+      (append
+        (if (listp h) (flatten h) (list h)) 
+        (flatten (cdr l))))))

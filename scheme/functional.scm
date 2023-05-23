@@ -109,3 +109,9 @@
 (define (interleave . colls) ; zip
   (apply mapcan* list colls))
 
+(define (flatten l) ; O(n^2) !!!
+  (if (null? l) '()
+    (let ((h (car l)))
+      (append
+        (if (list? h) (flatten h) (list h)) 
+        (flatten (cdr l))))))
