@@ -3,9 +3,9 @@
 (defmacro defzero (name)  ; defparameter
   `(defvar ,name 0))
 (defmacro defzeros (&rest names) 
-  `(begin ,@(mapcar (lambda (name) `(defzero ,name)) names)))
+  `(progn ,@(mapcar (lambda (name) `(defzero ,name)) names)))
 (defmacro defvals (val &rest names) 
-  `(begin ,@(mapcar (lambda (name) `(defvar ,name ,val)) names)))
+  `(progn ,@(mapcar (lambda (name) `(defvar ,name ,val)) names)))
 
 
 (defmacro -> (val &rest forms)
