@@ -18,7 +18,7 @@
 
 (define (foldr f val coll)
   (if (null? coll) val
-    (f val (foldr f (car coll) (cdr coll)))))
+    (f (foldr f (car coll) (cdr coll)) val)))
 
 (define (reduce f coll)
   (foldl f (car coll) (cdr coll)))

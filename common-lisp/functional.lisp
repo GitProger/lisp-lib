@@ -17,7 +17,7 @@
 (defun foldr (fun val coll)
   (if (null coll)
     val
-    (funcall fun val (foldr fun (car coll) (cdr coll)))))
+    (funcall fun (foldr fun (car coll) (cdr coll)) val)))
 
 (defun foldl0 (fun coll) ; reduce
   (foldl fun (car coll) (cdr coll)))
