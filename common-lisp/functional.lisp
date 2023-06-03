@@ -53,13 +53,6 @@
 (defun str (&rest s)
   (apply #'concatenate 'string "" s))
 
-(defmacro macro-apply-list (macro-name args) 
-  `(eval (cons ',macro-name ,args)))
-
-(defmacro macro-apply (macro-name &rest args) 
-  `(eval (cons ',macro-name (list* ,@args))))
-; `(eval (cons ',macro-name (apply #'list* (list ,@args)))))
-
 
 ; every? - every
 ; some? - some

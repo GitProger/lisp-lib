@@ -60,3 +60,12 @@
 
 (defmacro define ((name &rest args) &rest body)
   (cons 'defun (append (cons name (list args)) body)))
+  
+(defmacro macro-apply-list (macro-name args) 
+  `(eval (cons ',macro-name ,args)))
+
+(defmacro macro-apply (macro-name &rest args) 
+  `(eval (cons ',macro-name (list* ,@args))))
+; `(eval (cons ',macro-name (apply #'list* (list ,@args)))))
+
+

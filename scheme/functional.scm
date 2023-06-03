@@ -61,12 +61,6 @@
 
 (define str string-append)
 
-(defmacro macro-apply-list (macro-name args) 
-  `(eval (cons ',macro-name ,args) (interaction-environment)))
-
-(defmacro macro-apply (macro-name . args) 
-  `(eval (cons ',macro-name (list* ,@args))) (interaction-environment))
-
 
 ;(map + '(1 2 3) '(4 5 6 7 8 9))
 ;(mapcar #'+ '(1 2 3) '(4 5 6 7 8 9))

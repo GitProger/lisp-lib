@@ -57,6 +57,12 @@
 ; (defn plus "Adds two numbers" [a b] (+ a b))
 ; (defn minus [a b] (- a b))
 
+(defmacro macro-apply-list (macro-name args) 
+  `(eval (cons ',macro-name ,args) (interaction-environment)))
+
+(defmacro macro-apply (macro-name . args) 
+  `(eval (cons ',macro-name (list* ,@args))) (interaction-environment))
+
 
 (defmacro defun (name args . body)
   (cons 'define (cons (cons name args) body)))
