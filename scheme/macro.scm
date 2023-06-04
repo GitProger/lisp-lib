@@ -65,5 +65,5 @@
   `(eval (cons ',macro-name ,args) (interaction-environment)))
 
 (defmacro macro-apply (macro-name . args) 
-  `(eval (cons ',macro-name (list* ,@args))) (interaction-environment))
+  `(eval (cons ',macro-name (list* ,@args)) (interaction-environment)))
 

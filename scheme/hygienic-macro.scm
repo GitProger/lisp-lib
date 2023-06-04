@@ -59,17 +59,16 @@
       (define (,f ,@args) ,@body))
     `(defn ,f "-" ,doc ,@(cons args body))))
 
-
-
-
 (define-syntax defun
   (syntax-rules ()
     [(_ name args . body)
       (define (name . args) . body)]))
 
-(define-macro (macro-apply-list macro-name args) 
-  `(eval (cons ',macro-name ,args) (interaction-environment)))
+(define-syntax macro-apply-list
+  (syntax-rules ()
+    [(_ macro-name args)
+     (eval (cons 'macro-name args) (interaction-environment))]))
+
 
 (define-macro (macro-apply macro-name . args) 
-  `(eval (cons ',macro-name (list* ,@args))) (interaction-environment))
-
+  `(eval (cons ',macro-name (list* ,@args)) (interaction-environment)))
