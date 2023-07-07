@@ -6,7 +6,7 @@
   (uniforce (car l)))
 
 (define (lazy-cdr l)
-	(uniforce (cdr l)))
+  (uniforce (cdr l)))
 
 (define (lazy-cons h t)
 	(cons h (delay t)))
@@ -14,7 +14,7 @@
 (define (lazy-seq l)
   (if (null? l)
     l
-   	(lazy-cons (car l) (lazy-seq (cdr l)))))
+    (lazy-cons (car l) (lazy-seq (cdr l)))))
 
 (define (lazy-seq->list lazy)
   (if (null? lazy)

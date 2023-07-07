@@ -1,10 +1,4 @@
 
-(defmacro delay (form)
-  `(lambda () ,form))
-
-(defun force (form)
-  (when form (funcall form)))
-
 (defun uniforce (form)
   (if (functionp form)
     (funcall form)

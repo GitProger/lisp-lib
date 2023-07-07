@@ -52,17 +52,43 @@
     [(_ sym)
       (display (string-append "\t" (doc-find __doc-list 'sym) "\n"))]))
 
-(define-macro (defn f doc args . body)
-  (if (string? doc)
-    `(begin
-      (create-doc ,f ,(string-append (symbol->string f) " " (format #f "~a" args) ": " doc)) ; ,doc)
-      (define (,f ,@args) ,@body))
-    `(defn ,f "-" ,doc ,@(cons args body))))
+; (define-macro (defn f doc args . body)
+;   (if (string? doc)
+;     `(begin
+;       (create-doc ,f ,(string-append (symbol->string f) " " (format #f "~a" args) ": " doc)) ; ,doc)
+;       (define (,f ,@args) ,@body))
+;     `(defn ,f "-" ,doc ,@(cons args body))))
+
+
+(define-syntax defn-doc
+  (syntax-rules ()
+    [(_ f doc args . body)
+     (begin
+      (create-doc f (string-append (symbol->string 'f) " " (format #f "~a" 'args) ": " doc))
+      (define (f . args) . body))]))
+
+; (define-syntax defn
+;   (syntax-rules ()
+;     [(_ f doc args . body)
+;      (if (string? doc)
+;       (defn-doc f doc args . body)
+;       (defn-doc f "-" doc . (cons 'args 'body)))]))
+
+(define-syntax defn
+  (syntax-rules ()
+    [(_ f doc args . body)
+     (let* ((ok (string? doc))
+            (true-doc (if ok doc "-"))
+            (true-args (if ok 'args doc))
+            (true-body (if ok 'body (cons 'args 'body))))
+      (eval `(defn-doc f ,true-doc ,true-args . ,true-body) (interaction-environment)))]))
+
 
 (define-syntax defun
   (syntax-rules ()
     [(_ name args . body)
       (define (name . args) . body)]))
+
 
 (define-syntax macro-apply-list
   (syntax-rules ()
@@ -70,5 +96,20 @@
      (eval (cons 'macro-name args) (interaction-environment))]))
 
 
-(define-macro (macro-apply macro-name . args) 
-  `(eval (cons ',macro-name (list* ,@args)) (interaction-environment)))
+; (define-macro (macro-apply macro-name . args) 
+;   `(eval (cons ',macro-name (list* ,@args)) (interaction-environment)))
+
+; (define (leval e) (eval e (interaction-environment)))
+; (define-syntax macro-apply
+;   (syntax-rules ()
+;     [(_ macro-name . args)
+;       (leval (cons 'macro-name (leval (cons 'list* 'args))))]))
+
+(define-syntax macro-apply
+  (syntax-rules ()
+    [(_ macro-name . args)
+      (macro-apply-list macro-name (eval (cons 'list* 'args) (interaction-environment)))]))
+
+
+; (mexpand '(macro-apply and 1 2 '(3 4)))
+; (macro-apply and 1 2 '(3 4))

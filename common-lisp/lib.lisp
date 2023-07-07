@@ -1,3 +1,4 @@
+(load "delay")
 (load "functional")
 (load "macro")
 (load "lazy")
